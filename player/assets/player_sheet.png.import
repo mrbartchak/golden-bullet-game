@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvwc5ihvlhrx1"
-path="res://.godot/imported/bullet_outlined.png-73fe41ff4ec0873a6430629877552a37.ctex"
+uid="uid://dgknpr4ighcdp"
+path="res://.godot/imported/player_sheet.png-f24301736bd636213853bcd6119b49dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bullets/assets/bullet_outlined.png"
-dest_files=["res://.godot/imported/bullet_outlined.png-73fe41ff4ec0873a6430629877552a37.ctex"]
+source_file="res://player/assets/player_sheet.png"
+dest_files=["res://.godot/imported/player_sheet.png-f24301736bd636213853bcd6119b49dc.ctex"]
 
 [params]
 

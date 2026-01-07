@@ -1,29 +1,37 @@
 [gd_scene load_steps=6 format=3 uid="uid://dkbuujpad5k1i"]
 
 [ext_resource type="Script" uid="uid://c6mv2ky3wsbut" path="res://bullets/bullet.gd" id="1_tnxwn"]
-[ext_resource type="Texture2D" uid="uid://c3d3gyjkicbea" path="res://bullets/assets/bullet_filled.png" id="2_ascq4"]
+[ext_resource type="Texture2D" uid="uid://bca8ducnn703m" path="res://bullets/assets/bullet_rect_large.png" id="2_ascq4"]
 [ext_resource type="Script" uid="uid://ds4uhjalqwxuo" path="res://effects/bullet_trail.gd" id="3_ascq4"]
 
 [sub_resource type="Curve" id="Curve_ascq4"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.65543574), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wo3kc"]
-radius = 2.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ascq4"]
+radius = 6.0
+height = 18.0
 
 [node name="Bullet" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
 monitorable = false
 script = ExtResource("1_tnxwn")
-speed = 1200.0
+speed = 500.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+rotation = 1.5707964
 texture = ExtResource("2_ascq4")
 
-[node name="Line2D" type="Line2D" parent="Sprite2D"]
+[node name="Trail" type="Line2D" parent="Sprite"]
 top_level = true
-width = 4.0
+width = 8.0
 width_curve = SubResource("Curve_ascq4")
 script = ExtResource("3_ascq4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_wo3kc")
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ascq4")
+debug_color = Color(0.8815425, 0.0393544, 0.80844384, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

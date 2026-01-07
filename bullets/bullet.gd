@@ -9,7 +9,12 @@ var velocity: Vector2
 var alive: bool = true
 
 func _ready() -> void:
+	$Sprite.modulate = Color.KHAKI
+	$Sprite/Trail.modulate = Color.KHAKI
 	monitoring = true
+	
+	if velocity != Vector2.ZERO:
+		rotation = velocity.angle()
 	
 	if lifetime > 0:
 		await get_tree().create_timer(lifetime).timeout

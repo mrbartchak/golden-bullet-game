@@ -1,6 +1,6 @@
 extends Line2D
 
-var trail_length: int = 5
+var trail_length: int = 7
 var color: Color = Color.WHITE
 
 func _process(_delta: float) -> void:

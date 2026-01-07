@@ -1,9 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://ceaauc0vs2nof"]
+[gd_scene load_steps=3 format=3 uid="uid://ceaauc0vs2nof"]
 
 [ext_resource type="PackedScene" uid="uid://daeaonaxmtwe1" path="res://player/player.tscn" id="1_xiose"]
+[ext_resource type="PackedScene" uid="uid://ps7c40br6gw" path="res://enemies/enemy.tscn" id="2_r77kf"]
 
 [node name="Main" type="Node"]
 
 [node name="World2D" type="Node2D" parent="."]
 
 [node name="Player" parent="World2D" instance=ExtResource("1_xiose")]
+position = Vector2(159, 99)
+
+[node name="EnemyContainer" type="Node2D" parent="World2D"]
+
+[node name="Enemy" parent="World2D/EnemyContainer" instance=ExtResource("2_r77kf")]
+position = Vector2(32, 66)
+
+[node name="Enemy2" parent="World2D/EnemyContainer" instance=ExtResource("2_r77kf")]
+position = Vector2(103, 23)
+
+[node name="Enemy3" parent="World2D/EnemyContainer" instance=ExtResource("2_r77kf")]
+position = Vector2(270, 35)
+
+[node name="Enemy4" parent="World2D/EnemyContainer" instance=ExtResource("2_r77kf")]
+position = Vector2(273, 144)
+
+[node name="Enemy5" parent="World2D/EnemyContainer" instance=ExtResource("2_r77kf")]
+position = Vector2(78, 143)
