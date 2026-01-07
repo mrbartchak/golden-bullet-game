@@ -14,10 +14,9 @@ height = 18.0
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 4
-collision_mask = 2
-monitorable = false
+collision_mask = 10
 script = ExtResource("1_tnxwn")
-speed = 500.0
+speed = 1000.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 rotation = 1.5707964

@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvd0ghdsnnux1"]
+
+[ext_resource type="Texture2D" uid="uid://cluthpfogq6f4" path="res://core/arena.png" id="1_dkqtx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkqtx"]
+size = Vector2(448, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u13ga"]
+size = Vector2(448, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dotur"]
+size = Vector2(4, 256)
+
+[node name="Arena" type="Node2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_dkqtx")
+
+[node name="Walls" type="StaticBody2D" parent="." groups=["walls"]]
+collision_layer = 8
+collision_mask = 0
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, -126)
+shape = SubResource("RectangleShape2D_dkqtx")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 126)
+shape = SubResource("RectangleShape2D_u13ga")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(222, 0)
+shape = SubResource("RectangleShape2D_dotur")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-222, 0)
+shape = SubResource("RectangleShape2D_dotur")

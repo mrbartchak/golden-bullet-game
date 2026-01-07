@@ -23,10 +23,11 @@ scale_max = 2.0
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 8
 motion_mode = 1
 script = ExtResource("1_fw1ev")
 max_health = 1
+movement_speed = 100.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_7frlh")

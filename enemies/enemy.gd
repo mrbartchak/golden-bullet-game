@@ -15,8 +15,10 @@ func _ready() -> void:
 	movement_direction = (screen_center - global_position).normalized()
 	$HitFlashTimer.timeout.connect(_on_hit_flash_timeout)
 
-func _physics_process(delta: float) -> void:
-	global_position += movement_direction * movement_speed * delta
+func _physics_process(_delta: float) -> void:
+	#global_position += movement_direction * movement_speed * delta
+	velocity = movement_direction * movement_speed
+	move_and_slide()
 
 
 #=== Public Functions ===
@@ -48,7 +50,7 @@ func _play_death_sound() -> void:
 	$DeathAudio.play()
 
 func _play_death_particles() -> void:
-	$DeathParticles.modulate = Color.KHAKI
+	$DeathParticles.modulate = Color.GOLD
 	$DeathParticles.emitting = true
 
 func _on_hit_flash_timeout() -> void:

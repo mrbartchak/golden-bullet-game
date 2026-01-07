@@ -16,8 +16,8 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 
 [display]
 
-window/size/viewport_width=320
-window/size/viewport_height=180
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/window_width_override=3840
 window/size/window_height_override=2160
 window/stretch/mode="viewport"
@@ -56,6 +56,7 @@ fire={
 2d_physics/layer_1="player"
 2d_physics/layer_2="enemies"
 2d_physics/layer_3="bullets"
+2d_physics/layer_4="walls"
 
 [rendering]
 

@@ -1,31 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://ceaauc0vs2nof"]
+[gd_scene load_steps=7 format=3 uid="uid://ceaauc0vs2nof"]
 
 [ext_resource type="PackedScene" uid="uid://daeaonaxmtwe1" path="res://player/player.tscn" id="1_xiose"]
-[ext_resource type="PackedScene" uid="uid://c3wo1giyqrnqp" path="res://core/camera.tscn" id="2_3gdo0"]
 [ext_resource type="PackedScene" uid="uid://ps7c40br6gw" path="res://enemies/enemy.tscn" id="2_r77kf"]
+[ext_resource type="PackedScene" uid="uid://b2u3nju462sal" path="res://systems/spawners/enemy_spawner.tscn" id="3_3gdo0"]
+[ext_resource type="PackedScene" uid="uid://bvd0ghdsnnux1" path="res://arena/arena.tscn" id="4_csopv"]
+[ext_resource type="Script" uid="uid://48tmkotoibbd" path="res://core/ui_manager.gd" id="5_xa854"]
+[ext_resource type="PackedScene" uid="uid://dsvo5atiftsiv" path="res://core/cursor/cursor.tscn" id="6_kagtj"]
 
 [node name="Main" type="Node"]
 
 [node name="World2D" type="Node2D" parent="."]
 
+[node name="Arena" parent="World2D" instance=ExtResource("4_csopv")]
+position = Vector2(320, 180)
+
 [node name="Player" parent="World2D" instance=ExtResource("1_xiose")]
-position = Vector2(159, 99)
+position = Vector2(321, 131)
+movement_speed = 200.0
 
-[node name="Camera" parent="World2D/Player" instance=ExtResource("2_3gdo0")]
+[node name="EnemySpawner" parent="World2D" instance=ExtResource("3_3gdo0")]
+position = Vector2(190, 229)
+enemy_scene = ExtResource("2_r77kf")
+spawn_radius = 1.0
 
-[node name="EnemyContainer" type="Node2D" parent="World2D"]
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_xa854")
 
-[node name="Enemy" parent="World2D/EnemyContainer" instance=ExtResource("2_r77kf")]
-position = Vector2(32, 66)
+[node name="Quit Button" type="Button" parent="UI"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "quit"
 
-[node name="Enemy2" parent="World2D/EnemyContainer" instance=ExtResource("2_r77kf")]
-position = Vector2(103, 23)
+[node name="Cursor" parent="." instance=ExtResource("6_kagtj")]
 
-[node name="Enemy3" parent="World2D/EnemyContainer" instance=ExtResource("2_r77kf")]
-position = Vector2(270, 35)
-
-[node name="Enemy4" parent="World2D/EnemyContainer" instance=ExtResource("2_r77kf")]
-position = Vector2(273, 144)
-
-[node name="Enemy5" parent="World2D/EnemyContainer" instance=ExtResource("2_r77kf")]
-position = Vector2(78, 143)
+[connection signal="pressed" from="UI/Quit Button" to="UI" method="_on_quit_button_pressed"]

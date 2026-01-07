@@ -5,13 +5,16 @@ enum Facing { LEFT, RIGHT }
 @export var movement_speed: float = 70.0
 @export var bullet_scene: PackedScene
 
+var acceleration: int = 6
+var friction: int = 20
+
 var facing: Facing = Facing.RIGHT
 var muzzle_offset: int = 4
 
 #===Process Callbacks
 func _ready() -> void:
 	$Sprite.play("idle")
-	self.modulate = Color.KHAKI
+	self.modulate = Color.GOLD
 
 func _process(_delta: float) -> void:
 	_update_animation()
@@ -19,8 +22,8 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("fire"):
 		fire()
 
-func _physics_process(_delta: float) -> void:
-	_handle_movement()
+func _physics_process(delta: float) -> void:
+	_handle_movement(delta)
 
 
 #===Public Functions
@@ -32,7 +35,7 @@ func fire() -> void:
 
 
 #===Private Functions
-func _handle_movement() -> void:
+func _handle_movement(delta: float) -> void:
 	var input_dir: Vector2 = Input.get_vector(
 		"move_left",
 		"move_right",
@@ -45,7 +48,8 @@ func _handle_movement() -> void:
 	elif input_dir.x < 0:
 		facing = Facing.LEFT
 	
-	velocity = input_dir * movement_speed
+	var lerp_weight: float = delta * (acceleration if input_dir == Vector2.ZERO else friction)
+	velocity = lerp(velocity, input_dir * movement_speed, lerp_weight) #input_dir * movement_speed
 	move_and_slide()
 
 func _update_animation() -> void:

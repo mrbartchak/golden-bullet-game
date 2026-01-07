@@ -1,10 +1,35 @@
-[gd_scene load_steps=14 format=3 uid="uid://daeaonaxmtwe1"]
+[gd_scene load_steps=19 format=3 uid="uid://daeaonaxmtwe1"]
 
 [ext_resource type="Texture2D" uid="uid://egf00bo5f2cd" path="res://player/assets/player_sprite.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://bgg356rxliqit" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="PackedScene" uid="uid://dkbuujpad5k1i" path="res://bullets/bullet.tscn" id="2_g1dw6"]
 [ext_resource type="Texture2D" uid="uid://dgknpr4ighcdp" path="res://player/assets/player_sheet.png" id="3_qjkh3"]
 [ext_resource type="AudioStream" uid="uid://hjbv6d4yv0h1" path="res://player/assets/fire_sound.wav" id="4_yw30f"]
+
+[sub_resource type="Curve" id="Curve_qjkh3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5032939), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_g6k8r"]
+curve = SubResource("Curve_qjkh3")
+
+[sub_resource type="Curve" id="Curve_g6k8r"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.6806889), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_boad6"]
+curve = SubResource("Curve_g6k8r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qjkh3"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_boad6")
+alpha_curve = SubResource("CurveTexture_g6k8r")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g6k8r"]
 atlas = ExtResource("3_qjkh3")
@@ -75,15 +100,21 @@ animations = [{
 radius = 3.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 8
 motion_mode = 1
 script = ExtResource("1_rkbax")
+movement_speed = 100.0
 bullet_scene = ExtResource("2_g1dw6")
+
+[node name="MovementParticles" type="GPUParticles2D" parent="."]
+position = Vector2(0, 3)
+amount = 30
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_qjkh3")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rgyib")
 animation = &"idle"
-frame = 1
-frame_progress = 0.9346844
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
