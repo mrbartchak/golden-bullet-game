@@ -1,7 +1,11 @@
 extends CharacterBody2D
 
+enum Facing { LEFT, RIGHT }
+
 @export var movement_speed: float = 70.0
 @export var bullet_scene: PackedScene
+
+var facing: Facing = Facing.RIGHT
 var muzzle_offset: int = 4
 
 #===Process Callbacks
@@ -10,6 +14,8 @@ func _ready() -> void:
 	self.modulate = Color.KHAKI
 
 func _process(_delta: float) -> void:
+	_update_animation()
+	
 	if Input.is_action_just_pressed("fire"):
 		fire()
 
@@ -34,8 +40,23 @@ func _handle_movement() -> void:
 		"move_down"
 	)
 	
+	if input_dir.x > 0:
+		facing = Facing.RIGHT
+	elif input_dir.x < 0:
+		facing = Facing.LEFT
+	
 	velocity = input_dir * movement_speed
 	move_and_slide()
+
+func _update_animation() -> void:
+	if velocity.length_squared() == 0:
+		$Sprite.play("idle")
+		return
+	
+	if facing == Facing.RIGHT:
+		$Sprite.play("run_left")
+	else:
+		$Sprite.play("run_right")
 
 func _spawn_bullet(direction: Vector2) -> void:
 	var bullet: Bullet = bullet_scene.instantiate()

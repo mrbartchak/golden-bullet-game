@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 var health: int
 var movement_direction: Vector2
+var alive: bool = true
 
 
 func _ready() -> void:
@@ -18,14 +19,19 @@ func _physics_process(delta: float) -> void:
 	global_position += movement_direction * movement_speed * delta
 
 func take_damage(amount: int) -> void:
+	if not alive:
+		return
 	health -= amount
 	_play_hit_flash()
 	if health <= 0:
 		die()
 
 func die() -> void:
+	alive = false
+	$CollisionShape2D.set_deferred("disabled", true)
 	$Sprite.visible = false
-	await _play_death_animation()
+	_play_death_animation()
+	await get_tree().create_timer($DeathParticles.lifetime).timeout
 	queue_free()
 
 #=== Visuals ===
@@ -36,7 +42,6 @@ func _play_hit_flash() -> void:
 func _play_death_animation() -> void:
 	$DeathParticles.modulate = Color.KHAKI
 	$DeathParticles.emitting = true
-	await $DeathParticles.finished
 
 func _on_hit_flash_timeout() -> void:
 	$Sprite.modulate = Color.WHITE
