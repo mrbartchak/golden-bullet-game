@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ceaauc0vs2nof"]
+[gd_scene load_steps=4 format=3 uid="uid://ceaauc0vs2nof"]
 
 [ext_resource type="PackedScene" uid="uid://daeaonaxmtwe1" path="res://player/player.tscn" id="1_xiose"]
+[ext_resource type="PackedScene" uid="uid://c3wo1giyqrnqp" path="res://core/camera.tscn" id="2_3gdo0"]
 [ext_resource type="PackedScene" uid="uid://ps7c40br6gw" path="res://enemies/enemy.tscn" id="2_r77kf"]
 
 [node name="Main" type="Node"]
@@ -9,6 +10,8 @@
 
 [node name="Player" parent="World2D" instance=ExtResource("1_xiose")]
 position = Vector2(159, 99)
+
+[node name="Camera" parent="World2D/Player" instance=ExtResource("2_3gdo0")]
 
 [node name="EnemyContainer" type="Node2D" parent="World2D"]
 

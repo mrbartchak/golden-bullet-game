@@ -18,6 +18,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	global_position += movement_direction * movement_speed * delta
 
+
+#=== Public Functions ===
 func take_damage(amount: int) -> void:
 	if not alive:
 		return
@@ -30,16 +32,22 @@ func die() -> void:
 	alive = false
 	$CollisionShape2D.set_deferred("disabled", true)
 	$Sprite.visible = false
-	_play_death_animation()
+	_play_death_sound()
+	_play_death_particles()
 	await get_tree().create_timer($DeathParticles.lifetime).timeout
 	queue_free()
 
-#=== Visuals ===
+
+#=== Effects & Visuals ===
 func _play_hit_flash() -> void:
 	$Sprite.modulate = Color("f6757a")
 	$HitFlashTimer.start()
 
-func _play_death_animation() -> void:
+func _play_death_sound() -> void:
+	$DeathAudio.pitch_scale = randf_range(0.8, 1.2)
+	$DeathAudio.play()
+
+func _play_death_particles() -> void:
 	$DeathParticles.modulate = Color.KHAKI
 	$DeathParticles.emitting = true
 
