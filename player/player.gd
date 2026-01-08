@@ -2,11 +2,11 @@ extends CharacterBody2D
 
 enum Facing { LEFT, RIGHT }
 
-@export var movement_speed: float = 70.0
 @export var bullet_scene: PackedScene
 
-var acceleration: int = 6
-var friction: int = 20
+var movement_speed: float = 150.0
+var acceleration: int = 10
+var friction: int = 10
 
 var facing: Facing = Facing.RIGHT
 var muzzle_offset: int = 4
@@ -48,7 +48,7 @@ func _handle_movement(delta: float) -> void:
 	elif input_dir.x < 0:
 		facing = Facing.LEFT
 	
-	var lerp_weight: float = delta * (acceleration if input_dir == Vector2.ZERO else friction)
+	var lerp_weight: float = delta * (friction if input_dir == Vector2.ZERO else acceleration)
 	velocity = lerp(velocity, input_dir * movement_speed, lerp_weight) #input_dir * movement_speed
 	move_and_slide()
 

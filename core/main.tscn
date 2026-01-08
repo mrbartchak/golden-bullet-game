@@ -16,7 +16,6 @@ position = Vector2(320, 180)
 
 [node name="Player" parent="World2D" instance=ExtResource("1_xiose")]
 position = Vector2(321, 131)
-movement_speed = 200.0
 
 [node name="EnemySpawner" parent="World2D" instance=ExtResource("3_3gdo0")]
 position = Vector2(190, 229)
