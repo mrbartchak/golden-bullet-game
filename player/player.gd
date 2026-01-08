@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 enum Facing { LEFT, RIGHT }
@@ -6,7 +7,7 @@ enum Facing { LEFT, RIGHT }
 
 var movement_speed: float = 150.0
 var acceleration: int = 10
-var friction: int = 10
+var friction: int = 12
 
 var facing: Facing = Facing.RIGHT
 var muzzle_offset: int = 4
@@ -30,7 +31,9 @@ func _physics_process(delta: float) -> void:
 func fire() -> void:
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var direction: Vector2 = (mouse_pos - global_position).normalized()
-	_spawn_bullet(direction)
+	var bullet_spread: float = deg_to_rad(3.0)
+	var spread_angle: float = randf_range(-bullet_spread, bullet_spread)
+	_spawn_bullet(direction.rotated(spread_angle))
 	_play_fire_sound()
 
 
@@ -50,6 +53,10 @@ func _handle_movement(delta: float) -> void:
 	
 	var lerp_weight: float = delta * (friction if input_dir == Vector2.ZERO else acceleration)
 	velocity = lerp(velocity, input_dir * movement_speed, lerp_weight) #input_dir * movement_speed
+	
+	if velocity.length() < 3.0:
+		velocity = Vector2.ZERO
+	
 	move_and_slide()
 
 func _update_animation() -> void:
@@ -71,4 +78,5 @@ func _spawn_bullet(direction: Vector2) -> void:
 
 #===Effects===
 func _play_fire_sound() -> void:
+	$FireSound.pitch_scale = randf_range(0.6, 1.4)
 	$FireSound.play()

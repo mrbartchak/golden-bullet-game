@@ -99,13 +99,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_oul6g"]
 radius = 3.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 8
 motion_mode = 1
 script = ExtResource("1_rkbax")
 bullet_scene = ExtResource("2_g1dw6")
 
 [node name="MovementParticles" type="GPUParticles2D" parent="."]
+visible = false
 position = Vector2(0, 3)
 amount = 30
 lifetime = 0.5

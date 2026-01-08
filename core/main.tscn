@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ceaauc0vs2nof"]
+[gd_scene load_steps=8 format=3 uid="uid://ceaauc0vs2nof"]
 
 [ext_resource type="PackedScene" uid="uid://daeaonaxmtwe1" path="res://player/player.tscn" id="1_xiose"]
 [ext_resource type="PackedScene" uid="uid://ps7c40br6gw" path="res://enemies/enemy.tscn" id="2_r77kf"]
 [ext_resource type="PackedScene" uid="uid://b2u3nju462sal" path="res://systems/spawners/enemy_spawner.tscn" id="3_3gdo0"]
 [ext_resource type="PackedScene" uid="uid://bvd0ghdsnnux1" path="res://arena/arena.tscn" id="4_csopv"]
+[ext_resource type="PackedScene" uid="uid://j8ibusk10qin" path="res://coins/coin.tscn" id="5_cus2n"]
 [ext_resource type="Script" uid="uid://48tmkotoibbd" path="res://core/ui_manager.gd" id="5_xa854"]
 [ext_resource type="PackedScene" uid="uid://dsvo5atiftsiv" path="res://core/cursor/cursor.tscn" id="6_kagtj"]
 
@@ -22,6 +23,9 @@ position = Vector2(190, 229)
 enemy_scene = ExtResource("2_r77kf")
 spawn_radius = 1.0
 
+[node name="Coin" parent="World2D" instance=ExtResource("5_cus2n")]
+position = Vector2(193, 126)
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -34,6 +38,13 @@ layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 text = "quit"
+
+[node name="VelocityLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 252.0
+offset_top = 16.0
+offset_right = 402.0
+offset_bottom = 39.0
 
 [node name="Cursor" parent="." instance=ExtResource("6_kagtj")]
 

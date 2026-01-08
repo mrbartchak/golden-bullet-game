@@ -42,5 +42,4 @@ func _hit_enemy(body: Node2D) -> void:
 	queue_free()
 
 func _hit_wall(_body: Node2D) -> void:
-	print("tesrt")
 	queue_free()
