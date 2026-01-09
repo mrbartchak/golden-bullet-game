@@ -15,7 +15,6 @@ var muzzle_offset: int = 4
 #===Process Callbacks
 func _ready() -> void:
 	$Sprite.play("idle")
-	self.modulate = Color.GOLD
 
 func _process(_delta: float) -> void:
 	_update_animation()
@@ -65,9 +64,9 @@ func _update_animation() -> void:
 		return
 	
 	if facing == Facing.RIGHT:
-		$Sprite.play("run_left")
+		$Sprite.play("move_right")
 	else:
-		$Sprite.play("run_right")
+		$Sprite.play("move_left")
 
 func _spawn_bullet(direction: Vector2) -> void:
 	var bullet: Bullet = bullet_scene.instantiate()

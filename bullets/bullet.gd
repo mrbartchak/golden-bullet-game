@@ -9,8 +9,8 @@ var velocity: Vector2
 var alive: bool = true
 
 func _ready() -> void:
-	$Sprite.modulate = Color.GOLD
-	$Sprite/Trail.modulate = Color.GOLD
+	$Sprite.modulate = Color("49e7ec")
+	$Sprite/Trail.modulate = Color("49e7ec")
 	monitoring = true
 	
 	if velocity != Vector2.ZERO:
@@ -37,8 +37,8 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _hit_enemy(body: Node2D) -> void:
 	var enemy: Enemy = body as Enemy
-	if enemy.has_method("take_damage"):
-		enemy.take_damage(damage)
+	if enemy.has_method("take_hit"):
+		enemy.take_hit(damage, velocity)
 	queue_free()
 
 func _hit_wall(_body: Node2D) -> void:

@@ -1,42 +1,42 @@
 [gd_scene load_steps=14 format=3 uid="uid://ps7c40br6gw"]
 
 [ext_resource type="Script" uid="uid://nopsbehfna8r" path="res://enemies/enemy.gd" id="1_fw1ev"]
-[ext_resource type="Texture2D" uid="uid://c7b56sddc2o1u" path="res://enemies/assets/enemy_sheet.png" id="2_a6vjd"]
+[ext_resource type="Texture2D" uid="uid://c357a0ytcplmo" path="res://enemies/assets/enemy_sheet_red.png" id="2_orwns"]
 [ext_resource type="AudioStream" uid="uid://hr14sslgp83p" path="res://effects/pop.wav" id="3_orwns"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_07tka"]
-atlas = ExtResource("2_a6vjd")
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6vjd"]
+atlas = ExtResource("2_orwns")
 region = Rect2(0, 0, 8, 8)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a6vjd"]
-atlas = ExtResource("2_a6vjd")
+[sub_resource type="AtlasTexture" id="AtlasTexture_07tka"]
+atlas = ExtResource("2_orwns")
 region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3t1x0"]
-atlas = ExtResource("2_a6vjd")
+atlas = ExtResource("2_orwns")
 region = Rect2(8, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_epsnb"]
-atlas = ExtResource("2_a6vjd")
+atlas = ExtResource("2_orwns")
 region = Rect2(8, 8, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4w5fm"]
-atlas = ExtResource("2_a6vjd")
+atlas = ExtResource("2_orwns")
 region = Rect2(16, 8, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uba7a"]
-atlas = ExtResource("2_a6vjd")
+atlas = ExtResource("2_orwns")
 region = Rect2(8, 16, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_28xqf"]
-atlas = ExtResource("2_a6vjd")
+atlas = ExtResource("2_orwns")
 region = Rect2(16, 16, 8, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3t1x0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_07tka")
+"texture": SubResource("AtlasTexture_a6vjd")
 }],
 "loop": true,
 "name": &"default",
@@ -44,7 +44,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a6vjd")
+"texture": SubResource("AtlasTexture_07tka")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3t1x0")
@@ -102,6 +102,7 @@ max_health = 1
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3t1x0")
+animation = &"move_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7frlh")

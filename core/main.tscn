@@ -1,12 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://ceaauc0vs2nof"]
+[gd_scene load_steps=11 format=3 uid="uid://ceaauc0vs2nof"]
 
 [ext_resource type="PackedScene" uid="uid://daeaonaxmtwe1" path="res://player/player.tscn" id="1_xiose"]
 [ext_resource type="PackedScene" uid="uid://ps7c40br6gw" path="res://enemies/enemy.tscn" id="2_r77kf"]
-[ext_resource type="PackedScene" uid="uid://b2u3nju462sal" path="res://systems/spawners/enemy_spawner.tscn" id="3_3gdo0"]
+[ext_resource type="PackedScene" uid="uid://b2u3nju462sal" path="res://spawners/enemy_spawner.tscn" id="3_3gdo0"]
 [ext_resource type="PackedScene" uid="uid://bvd0ghdsnnux1" path="res://arena/arena.tscn" id="4_csopv"]
 [ext_resource type="PackedScene" uid="uid://j8ibusk10qin" path="res://coins/coin.tscn" id="5_cus2n"]
 [ext_resource type="Script" uid="uid://48tmkotoibbd" path="res://core/ui_manager.gd" id="5_xa854"]
 [ext_resource type="PackedScene" uid="uid://dsvo5atiftsiv" path="res://core/cursor/cursor.tscn" id="6_kagtj"]
+[ext_resource type="Shader" uid="uid://bfrq0qfw7ijtd" path="res://effects/background_scroll.gdshader" id="7_jsmgm"]
+[ext_resource type="Texture2D" uid="uid://dwhcw1vm2vjjc" path="res://effects/diamond_background.png" id="8_jsmgm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xhu5d"]
+shader = ExtResource("7_jsmgm")
+shader_parameter/speed = 0.1
 
 [node name="Main" type="Node"]
 
@@ -15,23 +21,41 @@
 [node name="Arena" parent="World2D" instance=ExtResource("4_csopv")]
 position = Vector2(320, 180)
 
-[node name="Player" parent="World2D" instance=ExtResource("1_xiose")]
-position = Vector2(321, 131)
-
 [node name="EnemySpawner" parent="World2D" instance=ExtResource("3_3gdo0")]
-position = Vector2(190, 229)
+position = Vector2(162, 258)
 enemy_scene = ExtResource("2_r77kf")
 spawn_radius = 1.0
 
 [node name="Coin" parent="World2D" instance=ExtResource("5_cus2n")]
 position = Vector2(193, 126)
 
+[node name="Coin2" parent="World2D" instance=ExtResource("5_cus2n")]
+position = Vector2(234, 98)
+
+[node name="Player" parent="World2D" instance=ExtResource("1_xiose")]
+position = Vector2(321, 131)
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("5_xa854")
+
+[node name="TextureRect" type="TextureRect" parent="UI"]
+z_index = -4096
+texture_repeat = 2
+material = SubResource("ShaderMaterial_xhu5d")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_jsmgm")
+stretch_mode = 1
 
 [node name="Quit Button" type="Button" parent="UI"]
 layout_mode = 0
