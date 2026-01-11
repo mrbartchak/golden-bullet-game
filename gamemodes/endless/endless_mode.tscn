@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://nbdrrww6xdu7"]
+
+[ext_resource type="Script" uid="uid://bjeo0nckd88k8" path="res://gamemodes/endless/endless_mode.gd" id="1_qokb8"]
+[ext_resource type="PackedScene" uid="uid://daeaonaxmtwe1" path="res://player/player.tscn" id="2_hp73j"]
+[ext_resource type="PackedScene" uid="uid://bvd0ghdsnnux1" path="res://arena/arena.tscn" id="3_3o4yc"]
+[ext_resource type="Script" uid="uid://bpki4v6gtekgg" path="res://core/game_state.gd" id="4_m26ij"]
+[ext_resource type="PackedScene" uid="uid://dsvo5atiftsiv" path="res://core/cursor/cursor.tscn" id="5_j4q0b"]
+[ext_resource type="Texture2D" uid="uid://m6xgh2gg36p" path="res://core/ui/assets/menu_button_normal.png" id="6_tea4o"]
+[ext_resource type="Script" uid="uid://48tmkotoibbd" path="res://core/ui/ui_manager.gd" id="6_vefq2"]
+[ext_resource type="Shader" uid="uid://bfrq0qfw7ijtd" path="res://effects/background_scroll.gdshader" id="7_3t6j4"]
+[ext_resource type="Texture2D" uid="uid://dwhcw1vm2vjjc" path="res://effects/diamond_background.png" id="8_0b2p1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o0cpw"]
+shader = ExtResource("7_3t6j4")
+shader_parameter/speed = 0.1
+
+[node name="EndlessMode" type="Node2D"]
+script = ExtResource("1_qokb8")
+
+[node name="Arena" parent="." instance=ExtResource("3_3o4yc")]
+position = Vector2(320, 180)
+
+[node name="Player" parent="." instance=ExtResource("2_hp73j")]
+position = Vector2(320, 180)
+
+[node name="GameState" type="Node2D" parent="."]
+script = ExtResource("4_m26ij")
+
+[node name="Cursor" parent="." instance=ExtResource("5_j4q0b")]
+
+[node name="HUD" type="Control" parent="."]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_vefq2")
+
+[node name="TextureRect" type="TextureRect" parent="HUD"]
+z_index = -4096
+texture_repeat = 2
+material = SubResource("ShaderMaterial_o0cpw")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_0b2p1")
+stretch_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="MenuButton" type="TextureButton" parent="HUD/MarginContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("6_tea4o")
+
+[connection signal="pressed" from="HUD/MarginContainer/MenuButton" to="HUD" method="_on_menu_button_pressed"]

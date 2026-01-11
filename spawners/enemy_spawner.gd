@@ -4,7 +4,6 @@ extends Node2D
 @export var enemy_scene: PackedScene
 @export var spawn_interval: float = 1.5
 @export var max_enemies: int = 10
-@export var spawn_radius: float = 100.0
 
 @onready var enemy_container: Node2D = $EnemyContainer
 @onready var spawn_timer: Timer = $SpawnTimer
@@ -22,10 +21,14 @@ func _spawn_enemy() -> void:
 
 	var enemy: Enemy = enemy_scene.instantiate()
 	enemy_container.add_child(enemy)
-	enemy.global_position = global_position
+	enemy.global_position = get_random_spawn_position()
 
 
-func _random_spawn_position() -> Vector2:
-	var angle := randf() * TAU
-	var rand_radius := randf() * spawn_radius
-	return global_position + Vector2.from_angle(angle) * rand_radius
+func get_random_spawn_position() -> Vector2:
+	var spawn_area: Area2D = $SpawnArea
+	var shape: RectangleShape2D = $SpawnArea/CollisionShape2D.shape
+	var size: Vector2 = shape.size
+	return spawn_area.global_position + Vector2(
+		randf_range(-size.x * 0.5, size.x * 0.5),
+		randf_range(-size.y * 0.5, size.y * 0.5)
+	)

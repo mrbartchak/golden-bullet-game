@@ -8,13 +8,9 @@ var health: int
 var movement_direction: Vector2
 var alive: bool = true
 
-var wobble_strength: float = 0.4
-var wobble_speed: float = 2.0
+var wobble_strength: float = 0.5
+var wobble_speed: float = 3.0
 var wobble_time: float = 0.0
-
-var knockback_strength: float = 60.0
-var knockback_friction: float = 800.0
-var knockback_velocity: Vector2 = Vector2.ZERO
 
 var player: Player
 
@@ -29,19 +25,16 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not alive or player == null:
-		_apply_knockback(delta)
 		move_and_slide()
 		return
 	_handle_movement(delta)
-	_apply_knockback(delta)
 	move_and_slide()
 
 
 #=== Public Functions ===
-func take_hit(amount: int, hit_direction: Vector2) -> void:
+func take_hit(amount: int, _hit_direction: Vector2) -> void:
 	if not alive:
 		return
-	knockback_velocity += hit_direction.normalized() * knockback_strength
 	health -= amount
 	_play_hit_flash()
 	if health <= 0:
@@ -49,8 +42,8 @@ func take_hit(amount: int, hit_direction: Vector2) -> void:
 
 func die() -> void:
 	alive = false
-	#$CollisionShape2D.set_deferred("disabled", true)
-	#$Sprite.visible = false
+	$CollisionShape2D.set_deferred("disabled", true)
+	$Sprite.visible = false
 	_play_death_sound()
 	_play_death_particles()
 	await get_tree().create_timer($DeathParticles.lifetime).timeout
@@ -69,10 +62,6 @@ func _handle_movement(delta: float) -> void:
 	
 	movement_direction = (to_player + wobble).normalized()
 	velocity = movement_direction * movement_speed
-
-func _apply_knockback(delta: float) -> void:
-	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_friction * delta)
-	velocity += knockback_velocity
 
 
 #=== Effects & Visuals ===
