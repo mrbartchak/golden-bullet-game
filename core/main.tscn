@@ -24,7 +24,7 @@ position = Vector2(320, 180)
 [node name="EnemySpawner" parent="World2D" instance=ExtResource("3_3gdo0")]
 position = Vector2(320, 180)
 enemy_scene = ExtResource("2_r77kf")
-spawn_radius = 1.0
+spawn_interval = 0.75
 
 [node name="Coin" parent="World2D" instance=ExtResource("5_cus2n")]
 position = Vector2(193, 126)
@@ -71,5 +71,6 @@ offset_right = 402.0
 offset_bottom = 39.0
 
 [node name="Cursor" parent="." instance=ExtResource("6_kagtj")]
+visible = false
 
 [connection signal="pressed" from="UI/Quit Button" to="UI" method="_on_quit_button_pressed"]

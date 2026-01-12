@@ -126,3 +126,8 @@ shape = SubResource("CircleShape2D_oul6g")
 [node name="FireSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_yw30f")
 volume_db = -7.429
+
+[node name="AimArrow" type="Polygon2D" parent="."]
+position = Vector2(0, -1)
+scale = Vector2(1, 0.99999994)
+polygon = PackedVector2Array(7, -2.0000005, 7, 4.000001, 12, 2.0000002, 12, 0)

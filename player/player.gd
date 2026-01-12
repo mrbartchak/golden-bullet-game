@@ -5,9 +5,9 @@ enum Facing { LEFT, RIGHT }
 
 @export var bullet_scene: PackedScene
 
-var movement_speed: float = 150.0
-var acceleration: int = 10
-var friction: int = 12
+var movement_speed: float = 120.0
+var acceleration: int = 8
+var friction: int = 15
 
 var facing: Facing = Facing.RIGHT
 var muzzle_offset: int = 4
@@ -17,6 +17,7 @@ func _ready() -> void:
 	$Sprite.play("idle")
 
 func _process(_delta: float) -> void:
+	_update_aim_arrow()
 	_update_animation()
 	
 	if Input.is_action_just_pressed("fire"):
@@ -74,6 +75,13 @@ func _spawn_bullet(direction: Vector2) -> void:
 	bullet.velocity = direction * bullet.speed
 	get_tree().current_scene.add_child(bullet)
 
+func _get_aim_direction_normalized() -> Vector2:
+	return (get_global_mouse_position() - global_position).normalized()
+
+func _update_aim_arrow() -> void:
+	var dir: Vector2 = _get_aim_direction_normalized()
+	$AimArrow.position = dir * 3
+	$AimArrow.rotation = dir.angle()
 
 #===Effects===
 func _play_fire_sound() -> void:
